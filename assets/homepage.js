@@ -189,6 +189,29 @@ const updatePinnedLinksDisplay = () => {
     });
 }
 
+const themeHandler = () => {
+    const pref = matchMedia("(prefers-color-scheme: dark)")
+    const handler = {
+        getShouldDarkMode: function() {
+            if(pref.matches) return true
+            const hour = getCurrentDateTime().getHours()
+            if(hour >= 18 || hour <= 4) return true
+            return false
+        },
+
+        update: function() {
+            if(this.getShouldDarkMode()) {
+                document.body.classList.add("dark")
+            } else {
+                document.body.classList.remove("dark")
+            }
+        }
+    }
+
+    pref.addEventListener("change", () => handler.update())
+    handler.update()
+}
+
 setTimeText()
 setWeatherInfoText()
 setGreeting()
@@ -197,3 +220,5 @@ getOpenAIResponse()
 
 hookPinInput()
 updatePinnedLinksDisplay()
+
+themeHandler()

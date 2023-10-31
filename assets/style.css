@@ -2,6 +2,13 @@
     --accent: rgb(216, 105, 170);
     --accent-b: rgb(83, 212, 116);
     --accent-b-lighter: rgb(70, 231, 113);
+
+    --card-bg: white;
+    --card-bg-dark: #131313;
+}
+
+code {
+    font-family: 'Source Code Pro', monospace;
 }
 
 body {
@@ -10,14 +17,18 @@ body {
     flex-flow: column;
     align-items: center;
 
-    font-family: "Quicksand", sans-serif;
+    font-family: 'Jost', sans-serif;
     background-color: rgb(255, 255, 255);
-      
+    color: hsl(0, 0%, 24%);
+}
+
+body.dark {
+    background-color: rgb(22, 22, 28);
+    color: hsl(0, 0%, 99%);
 }
 
 main {
     height: 100vh;
-    background-color: white;
     padding: 2em;
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -48,15 +59,27 @@ main {
 .weather-widget {
     font-size: 1.9em;
 
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-    padding: 1em 0.2em;
+
+    padding: 1em 0.5em;
+    margin: 1em 0;
     width: 100%;
 
     box-sizing: border-box;
     border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.dark .weather-widget {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.weather-widget h3 {
+    font-size: 0.6em;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.weather-text {
+    display: flex;
 
 }
 
@@ -88,14 +111,25 @@ main {
 .card {
     padding: 1em 0.85em;
 
-    background: linear-gradient(to bottom, var(--accent-b) 60px, white 60px);
+    background-color: var(--card-bg);
+    background: linear-gradient(to bottom, var(--accent-b) 60px, var(--card-bg) 60px);
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
+.dark .card {
+    background-color: var(--card-bg-dark);
+    background: linear-gradient(to bottom, var(--accent-b) 60px, var(--card-bg-dark) 60px);
+    box-shadow: none;
+}
+
 .card:hover {
-    background: linear-gradient(to bottom, var(--accent-b-lighter) 60px, white 60px);
+    background: linear-gradient(to bottom, var(--accent-b-lighter) 60px, var(--card-bg) 60px);
+}
+
+.dark .card:hover {
+    background: linear-gradient(to bottom, var(--accent-b-lighter) 60px, var(--card-bg-dark) 60px);
 }
 
 .card a {
@@ -116,6 +150,12 @@ main {
     border-bottom: 1px solid var(--accent);
     display: block;
     text-transform: uppercase;
+
+    font-family: 'Source Code Pro', monospace;
+}
+
+.dark .card-link-wrap {
+    background-color: black;
 }
 
 .card-link-wrap p::before {
@@ -165,7 +205,12 @@ main {
     border-bottom: 1px solid hsl(0, 0%, 70%);
     outline: none;
     border-radius: 0;
-    padding: 1em 2px;
+    padding: 1em 5px;
+}
+
+.dark .pin-input-wrap input {
+    background-color: hsl(0, 0%, 10%);
+    color: #fff;
 }
 
 .pin-input-wrap input:focus {
@@ -183,8 +228,10 @@ main {
 }
 
 .pinned-link a {
+    font-family: 'Source Code Pro', monospace;
+
     border-bottom: 1px solid var(--accent);
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0.4em 0;
 }
 
