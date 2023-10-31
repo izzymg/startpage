@@ -151,3 +151,43 @@ main {
     margin-top: 1.5em;
     padding: 0 1em 0 0;
 }
+
+/* Pins */
+.pin-input-wrap {
+
+    margin: 2em 0;
+}
+
+.pin-input-wrap input {
+    width: 40%;
+    border: none;
+    font-family: inherit;
+    border-bottom: 1px solid hsl(0, 0%, 70%);
+    outline: none;
+    border-radius: 0;
+    padding: 1em 2px;
+}
+
+.pin-input-wrap input:focus {
+    border-bottom: 2px solid var(--accent-b);
+}
+
+.pinned-link {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.pinned-link img {
+    cursor: pointer;
+}
+
+.pinned-link a {
+    border-bottom: 1px solid var(--accent);
+    font-size: 1.2em;
+    margin: 0.4em 0;
+}
+
+.pinned-link a::before {
+    content: "> ";
+}

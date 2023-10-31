@@ -1,3 +1,5 @@
+![Page Screenshot](./screenshot.png)
+
 ## Open API Key
 
 The random word widget only works with an Open AI key!
