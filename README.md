@@ -1,4 +1,3 @@
-![Page Screenshot](./screenshot.png)
 ![Page Screenshot (dark mode)](./screenshot-dark.png)
 
 # Start page
