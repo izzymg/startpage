@@ -1,31 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
     <title>Hi!</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Lato:wght@400;700&family=Quicksand&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <main>
-        <header>
-            <section class="greeting">
-                <h1 id="greeting-text"></h1>
-                <h3 id="time-text"></h3>
-            </section>
-            <section id="weather-widget">
-                <img id="weather-widget-icon" src="" alt="">
-                <p id="weather-widget-description"></p>
-            </section>
-        </header>
-        <section class="content-layout">
-            <section class="links-grid"></section>
-            <section class="daily-word-section">
-                <h2>Word of the Day</h2>
-                <span class="error-text"></span>
-            </section>
+        <section class="greeting">
+            <h1 id="greeting-text"></h1>
+            <h3 id="time-text"></h3>
+        </section>
+        <section class="weather-widget">
+            <p>It's about.. </p>
+            <p id="weather-widget-description"></p>
+        </section>
+        <section class="links-grid">
+            <div class="card">
+                <div class="card-title-wrap">
+                    <a href="https://youtube.com">
+                        <h2>Youtube</h2>
+                        <img src="./assets/open_in_new_FILL0_wght400_GRAD0_opsz24.svg">
+                    </a>
+                </div>
+                <a class="card-link-wrap" href="https://www.youtube.com/feed/subscriptions">
+                    <p>Subscriptions</p>
+                </a>
+            </div>
+            <div class="card">
+                <div class="card-title-wrap">
+                    <a href="https://music.youtube.com">
+                        <h2>Music</h2>
+                        <img src="./assets/open_in_new_FILL0_wght400_GRAD0_opsz24.svg">
+                    </a>
+                </div>
+                <a class="card-link-wrap"
+                    href="https://music.youtube.com/playlist?list=PL-x2EenWaccXNovy4CtMP_SDAHgJ_sifL">
+                    <p>Hyperpop Luv</p>
+                </a>
+
+                <a href="https://music.youtube.com/playlist?list=PLweOkVlnj7x-y1yr1_7htpFVcczYcX4gE"
+                    class="card-link-wrap">
+                    <p>Future Funk</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-title-wrap">
+                    <a href="#">
+                        <h2>Pinned</h2>
+                        <img src="./assets/push_pin_FILL0_wght400_GRAD0_opsz24.svg">
+                    </a>
+                </div>
+
+                <div class="pin-input-wrap">
+                    <input id="pin-input" type="text" placeholder="https://example.com">
+                </div>
+
+                <div id="pinned-links-container"></div>
+
+            </div>
+        </section>
+
+        <section class="card daily-word-section">
+            <div class="card-title-wrap">
+                <a href="#">
+                    <h2>Word of the Day</h2>
+                </a>
+            </div>
+            <span id="daily-word-content"></span>
+            <span class="error-text"></span>
         </section>
         <script src="assets/homepage.js"></script>
     </main>
 </body>
+
 </html>

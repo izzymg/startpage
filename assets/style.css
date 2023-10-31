@@ -1,0 +1,153 @@
+:root {
+    --accent: rgb(216, 105, 170);
+    --accent-b: rgb(83, 212, 116);
+    --accent-b-lighter: rgb(70, 231, 113);
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    font-family: "Quicksand", sans-serif;
+    background-color: rgb(255, 255, 255);
+      
+}
+
+main {
+    height: 100vh;
+    background-color: white;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 4fr;
+
+    place-items: start stretch;
+    gap: 0 4em;
+}
+
+/** Intro header */
+
+
+.greeting {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 2em;
+}
+
+.greeting #greeting-text {
+    font-size: 1.9em;
+}
+
+.greeting #time-text {
+    font-size: 3em;
+}
+
+.weather-widget {
+    font-size: 1.9em;
+
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 0.2em;
+    width: 100%;
+
+    box-sizing: border-box;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+
+}
+
+/* Below header */
+.content-layout {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 1em;
+
+}
+
+.links-grid .card:nth-child(3) {
+    grid-column: span 2;
+}
+
+.links-grid .card {
+    min-width: 250px;
+}
+
+/* Cards */
+.card {
+    padding: 1em 0.85em;
+
+    background: linear-gradient(to bottom, var(--accent-b) 60px, white 60px);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.card:hover {
+    background: linear-gradient(to bottom, var(--accent-b-lighter) 60px, white 60px);
+}
+
+.card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.card-link-wrap {
+    padding: 0.25em;
+    margin: 1.5em 0;
+    background-color: #fff;
+    border-bottom: 1px solid var(--accent);
+    display: block;
+    text-transform: uppercase;
+}
+
+.card-link-wrap p::before {
+    content: "> ";
+}
+
+.card-link-wrap:hover {
+    border-bottom: 1px solid var(--accent-b);
+}
+
+.card-link-wrap p {
+    margin: 0;
+}
+
+
+.card-title-wrap a {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+
+/* Daily word */
+
+.daily-word-section {
+    display: flex;
+    flex-flow: column;
+}
+
+.daily-word-section #daily-word-content {
+    font-size: 1.3em;
+    border-right: 2px solid var(--accent-b);
+    margin-top: 1.5em;
+    padding: 0 1em 0 0;
+}

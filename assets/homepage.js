@@ -7,8 +7,7 @@ const weatherOpts = {
     longitude: 170.48433,
 }
 
-//const aiUpdateFreqMs = 1000 * 60 * 60 * 24
-const aiUpdateFreqMs = 1
+const aiUpdateFreqMs = 1000 * 60 * 60 * 24
 
 const getCurrentDateTime = () => new Date(Date.now())
 
@@ -46,8 +45,8 @@ const setWeatherInfoText = async () => {
 const getTimedGreetingText = hour => {
     let greeting = ""
     if (hour >= 12 && hour <= 17) {
-        greeting = "afternoon"
-    } else if (hour > 17 && hour <= 0) {
+        greeting = "Good afternoon"
+    } else if (hour > 17 && hour <= 23) {
         greeting = "Evening..."
     } else if (hour > 0 && hour < 5) {
         greeting = "Yawn..."
@@ -60,32 +59,14 @@ const getTimedGreetingText = hour => {
 const setGreeting = () => {
     document.querySelector("#greeting-text").textContent = getTimedGreetingText(getCurrentDateTime().getHours())
 }
-/*
-curl https://api.openai.com/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -d '{
-    "model": "gpt-3.5-turbo",
-    "messages": [
-      {
-        "role": "system",
-        "content": "You are a helpful assistant."
-      },
-      {
-        "role": "user",
-        "content": "Hello!"
-      }
-    ]
-  }'
-*/
 
-const getCachedAIResponse = () => localStorage.getItem("izzypage-word-response")
+const getCachedAIResponse = () => JSON.parse(localStorage.getItem("izzypage-word-response"))
 const storeCachedAIResponse = response => {
-    localStorage.setItem("izzypage-word-response", response)
+    localStorage.setItem("izzypage-word-response", JSON.stringify(response))
     localStorage.setItem("izzypage-word-time", Date.now())
 }
 
-/** Returns true if thesholdMs has elapsed since the last AI response was stored in the cache */
+/** Returns true if thresholdMs has elapsed since the last AI response was stored in the cache */
 const cachedAIResponseTimeElapsed = thresholdMs => {
     const timeSince = localStorage.getItem("izzypage-word-time")
     const currentMs = Date.now()
@@ -105,7 +86,7 @@ const getOpenAPIKey = async () => {
 const fetchOpenAIResponse = async () => {
     const key = await getOpenAPIKey()
     const prompt = {
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-3.5-turbo-16k",
         "messages": [
             {
                 "role": "user",
@@ -144,9 +125,68 @@ const getOpenAIResponse = async () => {
             console.log("USING CACHED RESPONSE")
             aiResponse = getCachedAIResponse()
         }
+        document.querySelector("#daily-word-content").textContent = aiResponse.choices[0].message.content
     } catch (err) {
         document.querySelector(".daily-word-section .error-text").textContent = err
     }
+}
+
+const getPinnedLinksData = () => {
+    const pinnedLinksData = localStorage.getItem("izzypage-pinned")
+    if(pinnedLinksData == null) {
+        return []
+    } else {
+        return JSON.parse(pinnedLinksData)
+    }
+}
+
+const hookPinInput = () => {
+    const onPinEvent = ev => {
+        const link = ev.target.value
+        if(link == null || link.length < 1) {
+            return
+        }
+        localStorage.setItem("izzypage-pinned", JSON.stringify([...getPinnedLinksData(), link]))
+        updatePinnedLinksDisplay()
+    }
+
+    document.querySelector("#pin-input").addEventListener("change", onPinEvent)
+}
+
+const removePin = link => {
+    const data = getPinnedLinksData()
+    data.splice(data.indexOf(link), 1)
+    localStorage.setItem("izzypage-pinned", JSON.stringify(data))
+}
+
+const updatePinnedLinksDisplay = () => {
+    const createPinnedLinkEle = link => {
+        const wrap = document.createElement("div")
+        wrap.classList.add("pinned-link")
+        const linkEle = document.createElement("a")
+        linkEle.href = link
+        linkEle.textContent = link
+        wrap.appendChild(linkEle)
+
+        const imgEle = document.createElement("img")
+        imgEle.src = "./assets/backspace_FILL0_wght400_GRAD0_opsz24.svg"
+        imgEle.dataset["link"] = link
+        wrap.appendChild(imgEle)
+        imgEle.addEventListener("click", ev => {
+            removePin(ev.target.dataset["link"])
+            updatePinnedLinksDisplay()
+        })
+
+        return wrap
+    }
+    
+    const container = document.querySelector("#pinned-links-container")
+    container.innerHTML = ""
+
+    getPinnedLinksData().forEach(link => {
+        const ele = createPinnedLinkEle(link)
+        container.appendChild(ele)
+    });
 }
 
 setTimeText()
@@ -154,3 +194,6 @@ setWeatherInfoText()
 setGreeting()
 
 getOpenAIResponse()
+
+hookPinInput()
+updatePinnedLinksDisplay()
